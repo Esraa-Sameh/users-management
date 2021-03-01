@@ -1,0 +1,12 @@
+<div class="jumbotron">
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+    consequat.
+  </p>
+  <p class="lead">
+    <a *ngIf="!authenticationService.loggedIn(); else logOut" class="btn btn-primary btn-lg" routerLink="/login">Log in</a>
+    <ng-template #logOut><a (click)='onLogOut()' class="btn btn-primary btn-lg" >Log out</a></ng-template>
+  </p>
+</div>

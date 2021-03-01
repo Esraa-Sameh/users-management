@@ -1,0 +1,109 @@
+<div class="container mt-3 mb-4">
+  <div class="col-lg-12 mt-4 mt-lg-0">
+    <button type="button" class="btn btn-light mb-4" (click)="openModal(content)">Add User</button>
+    <div class="row">
+      <div class="col-md-12">
+        <div
+          class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm"
+        >
+          <table class="table manage-candidates-top mb-0">
+            <thead>
+              <tr>
+                <th>Candidate Name</th>
+                <th class="text-center">Email</th>
+                <th class="action text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users" class="candidates-list">
+                <td class="title">
+                  <div class="thumb">
+                    <img
+                      class="img-fluid"
+                      [src]="
+                        user.avatar
+                          ? user.avatar
+                          : 'https://t4.ftcdn.net/jpg/03/21/65/93/240_F_321659381_SBb1zhD0a4ISqbNoVAn80KpJDUtmG8HY.jpg'
+                      "
+                      alt=""
+                    />
+                  </div>
+                  <div class="candidate-list-details">
+                    <div class="candidate-list-info">
+                      <div class="candidate-list-title">
+                        <h5 class="mb-0">
+                          <a 
+                          [routerLink]="[user.id]"
+                          
+                            >{{ user.first_name }} {{ user.last_name }}</a
+                          >
+                        </h5>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td class="candidate-list-favourite-time text-center">
+                  <span class="candidate-list-time order-1">{{
+                    user.email
+                  }}</span>
+                </td>
+                <td>
+                  <ul class="list-unstyled mb-0 d-flex justify-content-end">
+                    <li>
+                      <a
+                        class="text-info"
+                        data-toggle="tooltip"
+                        title=""
+                        data-original-title="Edit"
+                        [routerLink]="[user.id]"
+                        [queryParams]="{allowEdit:true}"
+                        ><i class="fas fa-pencil-alt"></i
+                      ></a>
+                    </li>
+                    <li>
+                      <a
+                        class="text-danger"
+                        data-toggle="tooltip"
+                        title=""
+                        data-original-title="Delete"
+                        (click)="clickDeleteUser(user.id)"
+                        ><i class="far fa-trash-alt"></i
+                      ></a>
+                    </li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add User</h4>
+    <button class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #addUserForm="ngForm" (ngSubmit)="onAddUserSubmit(addUserForm)">
+      <div class="form-group">
+        <label for="name">First Name</label>
+        <input ngModel type="text" class="form-control" id="fname" placeholder="Enter first name" name="first_name" />
+      </div>
+      <div class="form-group">
+        <label for="name">Last Name</label>
+        <input ngModel type="text" class="form-control" id="lname" placeholder="Enter last name" name="last_name"/>
+      </div>
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input ngModel type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" name="email" />
+      </div>
+      <div class="col d-flex justify-content-end">
+        <button [disabled]="!addUserForm.dirty" (click)="modal.close('Save click')" class="btn btn-primary" type="submit">Add User</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
